@@ -7,7 +7,6 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "nininini"
 
 
-
 @app.route("/todos/", methods=["GET", "POST"])
 def todos_list():
     form = TodoForm()
@@ -15,10 +14,7 @@ def todos_list():
     if request.method == "POST":
         if form.validate_on_submit():
             todo = form.data
-            newid = todos.new_id()
-            todo['id'] = newid
-            todos.create(todo, newid)
-            todos.save_all()
+            todos.create(todo)
         return redirect(url_for("todos_list"))
 
     return render_template("todos.html", form=form, todos=todos.all(), error=error)
