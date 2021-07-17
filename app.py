@@ -7,7 +7,6 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "nininini"
 
 
-
 @app.route("/todos/", methods=["GET", "POST"])
 def todos_list():
     form = TodoForm()
@@ -18,7 +17,6 @@ def todos_list():
             newid = todos.new_id()
             todo['id'] = newid
             todos.create(todo, newid)
-            todos.save_all()
         return redirect(url_for("todos_list"))
 
     return render_template("todos.html", form=form, todos=todos.all(), error=error)
